@@ -18,7 +18,7 @@ const sendInvitationEmail = async (guest, edition) => {
 
   try {
     const response = await axios.post(
-      `https://api.mailgun.net/v3/${mailgunDomain}/messages`,
+      `https://api.eu.mailgun.net/v3/${mailgunDomain}/messages`,
       data,
       {
         headers: {
