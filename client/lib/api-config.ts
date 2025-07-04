@@ -8,7 +8,7 @@ export const getApiBaseUrl = (): string => {
   if (typeof window !== 'undefined') {
     const clientApiUrl = process.env.NEXT_PUBLIC_BACKEND_API;
     console.log('Client API URL:', clientApiUrl);
-    return clientApiUrl || 'http://localhost:3000';
+    return clientApiUrl || 'https://guests.irmf.cz';
   }
   
   // For server-side, use BACKEND_API
