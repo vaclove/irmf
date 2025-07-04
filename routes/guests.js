@@ -14,17 +14,17 @@ router.get('/', async (req, res) => {
       through: {
         model: Invitation,
         as: 'Invitation',
-        attributes: ['status', 'category']
+        attributes: ['status', 'category', 'createdAt'] // Include createdAt to sort later
       },
-      attributes: ['year'],
-      order: [[{ model: Invitation, as: 'Invitation' }, 'createdAt', 'DESC']], // Order by invitation creation date
-      limit: 1
+      attributes: ['year']
     }]
   });
 
   const formattedGuests = guests.map(guest => {
     const guestData = guest.toJSON();
     if (guestData.Editions && guestData.Editions.length > 0) {
+      // Sort invitations by createdAt to find the latest one
+      guestData.Editions.sort((a, b) => new Date(b.Invitation.createdAt) - new Date(a.Invitation.createdAt));
       const lastInvitation = guestData.Editions[0].Invitation;
       const lastEdition = guestData.Editions[0];
       guestData.lastInvitation = {
