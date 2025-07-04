@@ -2,12 +2,12 @@ replicaCount: 1
 
 backendImage:
   repository: ghcr.io/vaclove/irmf/backend
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
   tag: "latest"
 
 frontendImage:
   repository: ghcr.io/vaclove/irmf/frontend
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
   tag: "latest"
 
 backendService:
