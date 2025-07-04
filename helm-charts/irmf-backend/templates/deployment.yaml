@@ -26,11 +26,11 @@ spec:
         - name: {{ .Chart.Name }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          image: "{{ .Values.backendImage.repository }}:{{ .Values.backendImage.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.backendImage.pullPolicy }}
           ports:
             - name: http
-              containerPort: {{ .Values.service.port }}
+              containerPort: {{ .Values.backendService.port }}
               protocol: TCP
           env:
             - name: PUBLIC_HOSTNAME
@@ -43,6 +43,49 @@ spec:
             httpGet:
               path: /guests
               port: http
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "irmf-frontend.fullname" . }}
+  labels:
+    {{- include "irmf-frontend.selectorLabels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "irmf-frontend.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "irmf-frontend.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+        - name: frontend
+          image: "{{ .Values.frontendImage.repository }}:{{ .Values.frontendImage.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.frontendImage.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.frontendService.port }}
+              protocol: TCP
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}

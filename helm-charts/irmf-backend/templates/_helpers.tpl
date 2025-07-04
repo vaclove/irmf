@@ -51,6 +51,21 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end -}}
 
 {{/*
+Frontend fullname
+*/}}
+{{- define "irmf-frontend.fullname" -}}
+{{- printf "%s-frontend" (include "irmf-backend.fullname" .) -}}
+{{- end -}}
+
+{{/*
+Frontend selector labels
+*/}}
+{{- define "irmf-frontend.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "irmf-backend.name" . }}-frontend
+app.kubernetes.io/instance: {{ .Release.Name }}
+{{- end -}}
+
+{{/*
 Create the name of the service account to use
 */}}
 {{- define "irmf-backend.serviceAccountName" -}}

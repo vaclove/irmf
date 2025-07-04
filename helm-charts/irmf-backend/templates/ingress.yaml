@@ -24,14 +24,19 @@ spec:
     - host: {{ .host | quote }}
       http:
         paths:
-          {{- range .paths }}
-          - path: {{ .path }}(/|$)(.*)
-            pathType: {{ .pathType }}
+          - path: /api/(.*)
+            pathType: ImplementationSpecific
             backend:
               service:
                 name: {{ include "irmf-backend.fullname" $ }}
                 port:
-                  number: {{ $.Values.service.port }}
-          {{- end }}
+                  number: {{ $.Values.backendService.port }}
+          - path: /(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: {{ include "irmf-frontend.fullname" $ }}
+                port:
+                  number: {{ $.Values.frontendService.port }}
     {{- end }}
 {{- end -}}
