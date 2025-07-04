@@ -2,11 +2,42 @@
 const express = require('express');
 const router = express.Router();
 const Guest = require('../models/guest');
+const Invitation = require('../models/invitation');
+const Edition = require('../models/edition');
 
 // Get all guests
 router.get('/', async (req, res) => {
-  const guests = await Guest.findAll();
-  res.json(guests);
+  const guests = await Guest.findAll({
+    include: [{
+      model: Edition,
+      as: 'Editions',
+      through: {
+        model: Invitation,
+        as: 'Invitation',
+        attributes: ['status', 'category']
+      },
+      attributes: ['year'],
+      order: [[{ model: Invitation, as: 'Invitation' }, 'createdAt', 'DESC']], // Order by invitation creation date
+      limit: 1
+    }]
+  });
+
+  const formattedGuests = guests.map(guest => {
+    const guestData = guest.toJSON();
+    if (guestData.Editions && guestData.Editions.length > 0) {
+      const lastInvitation = guestData.Editions[0].Invitation;
+      const lastEdition = guestData.Editions[0];
+      guestData.lastInvitation = {
+        year: lastEdition.year,
+        status: lastInvitation.status,
+        category: lastInvitation.category
+      };
+    }
+    delete guestData.Editions; // Remove the raw Editions array
+    return guestData;
+  });
+
+  res.json(formattedGuests);
 });
 
 // Create a new guest
