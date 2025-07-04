@@ -10,6 +10,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { ArrowLeft, Plus, Calendar, CalendarDays } from 'lucide-react';
 import Link from 'next/link';
 import { toast } from 'sonner';
+import { getApiUrl } from '@/lib/utils';
 
 interface Edition {
   id: number;
@@ -35,7 +36,7 @@ export default function EditionsPage() {
   const fetchEditions = async () => {
     try {
       console.log('Fetching editions...');
-      const response = await fetch('/api/editions');
+      const response = await fetch(getApiUrl('editions'));
       if (response.ok) {
         const data = await response.json();
         console.log('Editions fetched:', data);
@@ -57,7 +58,7 @@ export default function EditionsPage() {
     console.log('Submitting new edition:', formData);
     
     try {
-      const response = await fetch('/api/editions', {
+      const response = await fetch(getApiUrl('editions'), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

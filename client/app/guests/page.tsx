@@ -13,6 +13,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { ArrowLeft, Plus, Search, Users, Mail, Building, Phone } from 'lucide-react';
 import Link from 'next/link';
 import { toast } from 'sonner';
+import { getApiUrl } from '@/lib/utils';
 
 interface Guest {
   id: number;
@@ -51,7 +52,7 @@ export default function GuestsPage() {
   const fetchGuests = async () => {
     try {
       console.log('Fetching guests...');
-      const response = await fetch('/api/guests');
+      const response = await fetch(getApiUrl('guests'));
       if (response.ok) {
         const data = await response.json();
         console.log('Guests fetched:', data);
@@ -73,7 +74,7 @@ export default function GuestsPage() {
     console.log('Submitting new guest:', formData);
     
     try {
-      const response = await fetch('/api/guests', {
+      const response = await fetch(getApiUrl('guests'), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
