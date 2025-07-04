@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - film-frontend
 
 jobs:
   build_backend_image:

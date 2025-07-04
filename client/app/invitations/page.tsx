@@ -12,7 +12,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { ArrowLeft, Plus, Send, Mail, Users, Calendar, UserCheck } from 'lucide-react';
 import Link from 'next/link';
 import { toast } from 'sonner';
-import { getApiUrl } from '@/lib/utils';
+import { apiRequest } from '@/lib/api-config';
 
 interface Guest {
   id: number;
@@ -60,8 +60,8 @@ export default function InvitationsPage() {
     try {
       console.log('Fetching data...');
       const [guestsResponse, editionsResponse] = await Promise.all([
-        fetch(getApiUrl('/api/guests')),
-        fetch(getApiUrl('/api/editions'))
+        apiRequest('/api/guests'),
+        apiRequest('/api/editions')
       ]);
 
       if (guestsResponse.ok && editionsResponse.ok) {
@@ -88,11 +88,8 @@ export default function InvitationsPage() {
     console.log('Submitting invitation:', formData);
     
     try {
-      const response = await fetch(getApiUrl('/api/invitations/assign'), {
+      const response = await apiRequest('/api/invitations/assign', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
         body: JSON.stringify({
           guestId: parseInt(formData.guestId),
           editionId: parseInt(formData.editionId),
