@@ -2,12 +2,14 @@
 require('dotenv').config();
 
 const express = require('express');
+const cors = require('cors');
 const sequelize = require('./config/database');
 const guestsRouter = require('./routes/guests');
 const editionsRouter = require('./routes/editions');
 const invitationsRouter = require('./routes/invitations');
 
 const app = express();
+app.use(cors()); // Enable CORS for all routes
 app.use(express.json());
 
 app.use('/guests', guestsRouter);
