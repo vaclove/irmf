@@ -11,10 +11,6 @@ const Guest = sequelize.define('Guest', {
     type: DataTypes.STRING,
     allowNull: false,
     unique: true
-  },
-  category: {
-    type: DataTypes.STRING,
-    allowNull: false
   }
 });
 

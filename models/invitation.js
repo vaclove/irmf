@@ -8,6 +8,10 @@ const Invitation = sequelize.define('Invitation', {
   status: {
     type: DataTypes.STRING,
     defaultValue: 'pending' // pending, confirmed, declined
+  },
+  category: {
+    type: DataTypes.STRING,
+    allowNull: false
   }
 });
 

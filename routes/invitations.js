@@ -8,11 +8,11 @@ const { sendInvitationEmail } = require('../services/emailService');
 
 // Assign a guest to an edition and send invitation
 router.post('/assign', async (req, res) => {
-  const { guestId, editionId } = req.body;
+  const { guestId, editionId, category } = req.body;
   const guest = await Guest.findByPk(guestId);
   const edition = await Edition.findByPk(editionId);
   if (guest && edition) {
-    await edition.addGuest(guest);
+    await edition.addGuest(guest, { through: { category } });
     sendInvitationEmail(guest, edition);
     res.json({ message: 'Invitation sent successfully' });
   } else {
