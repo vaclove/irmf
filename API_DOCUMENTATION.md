@@ -22,7 +22,12 @@ This document outlines the available API endpoints for the Guest Management Syst
       "note": "This is a sample note.",
       "language": "english",
       "createdAt": "2025-07-04T...",
-      "updatedAt": "2025-07-04T..."
+      "updatedAt": "2025-07-04T...",
+      "lastInvitation": {
+        "year": 2025,
+        "status": "pending",
+        "category": "VIP"
+      }
     }
   ]
   ```
