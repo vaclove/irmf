@@ -40,4 +40,4 @@ COPY --from=builder /app/package.json ./package.json
 EXPOSE 3000
 
 # Command to run the Next.js application
-CMD ["bun", "run", "start"]
+CMD ["node", "node_modules/.bin/next", "start"]
