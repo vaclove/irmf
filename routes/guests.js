@@ -11,8 +11,8 @@ router.get('/', async (req, res) => {
 
 // Create a new guest
 router.post('/', async (req, res) => {
-  const { name, email } = req.body;
-  const guest = await Guest.create({ name, email });
+  const { name, surname, email, phone, company, note, language } = req.body;
+  const guest = await Guest.create({ name, surname, email, phone, company, note, language });
   res.json(guest);
 });
 
