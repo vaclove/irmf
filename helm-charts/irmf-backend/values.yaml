@@ -1,12 +1,12 @@
 replicaCount: 1
 
 backendImage:
-  repository: ghcr.io/vaclove/irmf/backend
+  repository: irmfcz.azurecr.io/backend
   pullPolicy: Always
   tag: "latest"
 
 frontendImage:
-  repository: ghcr.io/vaclove/irmf/frontend
+  repository: irmfcz.azurecr.io/frontend
   pullPolicy: Always
   tag: "latest"
 
