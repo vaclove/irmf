@@ -1,21 +1,22 @@
+# Stage 1: Build
+FROM node:20-alpine AS build
 
-# Use an official Node.js runtime as a parent image
-FROM node:20-alpine
-
-# Set the working directory in the container
 WORKDIR /usr/src/app
 
-# Copy package.json and package-lock.json to the working directory
 COPY package*.json ./
 
-# Install any dependencies
-RUN npm install
+RUN npm install --production
 
-# Copy the rest of the application code
 COPY . .
 
-# Expose port 3000
+# Stage 2: Production
+FROM node:20-alpine AS production
+
+WORKDIR /usr/src/app
+
+COPY --from=build /usr/src/app/node_modules ./node_modules
+COPY --from=build /usr/src/app .
+
 EXPOSE 3000
 
-# Define the command to run the application
 CMD [ "node", "index.js" ]

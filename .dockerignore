@@ -1,0 +1,10 @@
+node_modules
+.git
+client
+npm-debug.log
+Dockerfile
+.DS_Store
+.github
+.github.xxx
+bun.lock
+package-lock.json
