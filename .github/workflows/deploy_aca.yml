@@ -34,16 +34,12 @@ jobs:
           imageToDeploy: ${{ env.ACR_NAME }}/backend:${{ github.sha }}
           targetPort: 3000
           ingress: internal
-          environmentVariables:
-            - name: PUBLIC_HOSTNAME
-              value: "https://my.irmf.cz"
-          secrets:
-            - name: mailgun-api-key
-              value: ${{ secrets.MAILGUN_API_KEY }}
-            - name: mailgun-domain
-              value: ${{ secrets.MAILGUN_DOMAIN }}
-            - name: mailgun-sender-email
-              value: ${{ secrets.MAILGUN_SENDER_EMAIL }}
+          environmentVariables: |
+            PUBLIC_HOSTNAME=https://my.irmf.cz
+          secrets: |
+            mailgun-api-key=${{ secrets.MAILGUN_API_KEY }}
+            mailgun-domain=${{ secrets.MAILGUN_DOMAIN }}
+            mailgun-sender-email=${{ secrets.MAILGUN_SENDER_EMAIL }}
 
   deploy-frontend:
     runs-on: ubuntu-latest
@@ -67,6 +63,5 @@ jobs:
           targetPort: 3000
           ingress: external
           customDomainHostName: my.irmf.cz
-          environmentVariables:
-            - name: NEXT_PUBLIC_API_URL
-              value: "https://${{ needs.deploy-backend.outputs.backend_url }}"
+          environmentVariables: |
+            NEXT_PUBLIC_API_URL=https://${{ needs.deploy-backend.outputs.backend_url }}
