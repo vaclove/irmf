@@ -33,7 +33,6 @@ jobs:
           containerAppName: ${{ env.BACKEND_APP_NAME }}
           appSourcePath: ${{ github.workspace }}
           acrName: ${{ env.ACR_NAME }}
-          registryUrl: ${{ env.ACR_NAME }}.azurecr.io
           registryUsername: ${{ secrets.AZURE_CLIENT_ID }}
           registryPassword: ${{ secrets.AZURE_CLIENT_SECRET }}
           targetPort: 3000
@@ -64,7 +63,6 @@ jobs:
           containerAppName: ${{ env.FRONTEND_APP_NAME }}
           appSourcePath: ${{ github.workspace }}/client
           acrName: ${{ env.ACR_NAME }}
-          registryUrl: ${{ env.ACR_NAME }}.azurecr.io
           registryUsername: ${{ secrets.AZURE_CLIENT_ID }}
           registryPassword: ${{ secrets.AZURE_CLIENT_SECRET }}
           targetPort: 3000
