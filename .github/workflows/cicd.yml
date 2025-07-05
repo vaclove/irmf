@@ -67,7 +67,7 @@ jobs:
         uses: azure/container-apps-deploy-action@v1
         with:
           resourceGroup: ${{ secrets.RESOURCE_GROUP }}
-          environment: ${{ secrets.CONTAINER_APP_ENVIRONMENT }}
+          containerAppEnvironment: ${{ secrets.CONTAINER_APP_ENVIRONMENT }}
           containerAppName: ${{ env.BACKEND_APP_NAME }}
           imageToDeploy: ${{ env.ACR_NAME }}/backend:${{ github.sha }}
           registryUrl: ${{ env.ACR_NAME }}
@@ -77,10 +77,9 @@ jobs:
           ingress: internal
           environmentVariables: |
             PUBLIC_HOSTNAME=https://my.irmf.cz
-          secrets: |
-            mailgun-api-key=${{ secrets.MAILGUN_API_KEY }}
-            mailgun-domain=${{ secrets.MAILGUN_DOMAIN }}
-            mailgun-sender-email=${{ secrets.MAILGUN_SENDER_EMAIL }}
+            MAILGUN_API_KEY=${{ secrets.MAILGUN_API_KEY }}
+            MAILGUN_DOMAIN=${{ secrets.MAILGUN_DOMAIN }}
+            MAILGUN_SENDER_EMAIL=${{ secrets.MAILGUN_SENDER_EMAIL }}
 
   deploy-frontend:
     runs-on: ubuntu-latest
@@ -95,7 +94,7 @@ jobs:
         uses: azure/container-apps-deploy-action@v1
         with:
           resourceGroup: ${{ secrets.RESOURCE_GROUP }}
-          environment: ${{ secrets.CONTAINER_APP_ENVIRONMENT }}
+          containerAppEnvironment: ${{ secrets.CONTAINER_APP_ENVIRONMENT }}
           containerAppName: ${{ env.FRONTEND_APP_NAME }}
           imageToDeploy: ${{ env.ACR_NAME }}/frontend:${{ github.sha }}
           registryUrl: ${{ env.ACR_NAME }}
