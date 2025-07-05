@@ -25,13 +25,18 @@ ingress:
   hosts:
     - host: guests.irmf.cz
       paths:
-        - path: /api
+        - path: /api/api
           pathType: ImplementationSpecific
         - path: /
           pathType: ImplementationSpecific
   tls: []
 
 publicHostname: "https://guests.irmf.cz"
+
+mailgun:
+  domain: "irmf.cz"
+  apiKey: "MAILGUN_API_KEY_PLACEHOLDER"
+  senderEmail: "irmf@irmf.cz"
 
 resources: {}
 

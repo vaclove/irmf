@@ -36,7 +36,7 @@ export default function EditionsPage() {
   const fetchEditions = async () => {
     try {
       console.log('Fetching editions...');
-      const response = await fetch(getApiUrl('/api/editions'));
+      const response = await fetch(getApiUrl('/editions'));
       if (response.ok) {
         const data = await response.json();
         console.log('Editions fetched:', data);
@@ -58,7 +58,7 @@ export default function EditionsPage() {
     console.log('Submitting new edition:', formData);
     
     try {
-      const response = await fetch(getApiUrl('/api/editions'), {
+      const response = await fetch(getApiUrl('/editions'), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

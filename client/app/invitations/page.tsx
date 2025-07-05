@@ -60,8 +60,8 @@ export default function InvitationsPage() {
     try {
       console.log('Fetching data...');
       const [guestsResponse, editionsResponse] = await Promise.all([
-        fetch(getApiUrl('/api/guests')),
-        fetch(getApiUrl('/api/editions'))
+        fetch(getApiUrl('/guests')),
+        fetch(getApiUrl('/editions'))
       ]);
 
       if (guestsResponse.ok && editionsResponse.ok) {
@@ -88,7 +88,7 @@ export default function InvitationsPage() {
     console.log('Submitting invitation:', formData);
     
     try {
-      const response = await fetch(getApiUrl('/api/invitations/assign'), {
+      const response = await fetch(getApiUrl('/invitations/assign'), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

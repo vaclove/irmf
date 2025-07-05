@@ -14,7 +14,8 @@ const sendInvitationEmail = async (guest, edition) => {
   data.append('from', `IRMF <${senderEmail}>`);
   data.append('to', guest.email);
   data.append('subject', `Invitation to ${edition.year} Film Festival`);
-  data.append('text', `Dear ${guest.name},\n\nYou are invited to the ${edition.year} Film Festival. Please confirm your attendance by clicking the following link: http://localhost:3000/invitations/confirm/${guest.id}/${edition.id}`);
+  const publicHostname = process.env.PUBLIC_HOSTNAME || 'http://localhost:3000';
+  data.append('text', `Dear ${guest.name},\n\nYou are invited to the ${edition.year} Film Festival. Please confirm your attendance by clicking the following link: ${publicHostname}/invitations/confirm/${guest.id}/${edition.id}`);
 
   try {
     const response = await axios.post(

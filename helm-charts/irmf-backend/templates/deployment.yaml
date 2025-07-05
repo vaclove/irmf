@@ -35,6 +35,21 @@ spec:
           env:
             - name: PUBLIC_HOSTNAME
               value: {{ .Values.publicHostname | quote }}
+            - name: MAILGUN_DOMAIN
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "irmf-backend.fullname" . }}-mailgun-secret
+                  key: MAILGUN_DOMAIN
+            - name: MAILGUN_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "irmf-backend.fullname" . }}-mailgun-secret
+                  key: MAILGUN_API_KEY
+            - name: MAILGUN_SENDER_EMAIL
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "irmf-backend.fullname" . }}-mailgun-secret
+                  key: MAILGUN_SENDER_EMAIL
           livenessProbe:
             httpGet:
               path: /guests
