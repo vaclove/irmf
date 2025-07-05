@@ -66,20 +66,10 @@ jobs:
         id: deploy
         uses: azure/container-apps-deploy-action@v1
         with:
-          resourceGroup: ${{ secrets.RESOURCE_GROUP }}
-          containerAppEnvironment: ${{ secrets.CONTAINER_APP_ENVIRONMENT }}
+          resourceGroup: ${{ env.AZURE_RESOURCE_GROUP }}
+          containerAppEnvironment: ${{ env.AZURE_CONTAINER_APP_ENVIRONMENT }}
           containerAppName: ${{ env.BACKEND_APP_NAME }}
           imageToDeploy: ${{ env.ACR_NAME }}/backend:${{ github.sha }}
-          registryUrl: ${{ env.ACR_NAME }}
-          registryUsername: ${{ secrets.AZURE_CLIENT_ID }}
-          registryPassword: ${{ secrets.AZURE_CLIENT_SECRET }}
-          targetPort: 3000
-          ingress: internal
-          environmentVariables: |
-            PUBLIC_HOSTNAME=https://my.irmf.cz
-            MAILGUN_API_KEY=${{ secrets.MAILGUN_API_KEY }}
-            MAILGUN_DOMAIN=${{ secrets.MAILGUN_DOMAIN }}
-            MAILGUN_SENDER_EMAIL=${{ secrets.MAILGUN_SENDER_EMAIL }}
 
   deploy-frontend:
     runs-on: ubuntu-latest
@@ -93,8 +83,8 @@ jobs:
       - name: Deploy Frontend to Azure Container App
         uses: azure/container-apps-deploy-action@v1
         with:
-          resourceGroup: ${{ secrets.RESOURCE_GROUP }}
-          containerAppEnvironment: ${{ secrets.CONTAINER_APP_ENVIRONMENT }}
+          resourceGroup: ${{ env.AZURE_RESOURCE_GROUP }}
+          containerAppEnvironment: ${{ env.AZURE_CONTAINER_APP_ENVIRONMENT }}
           containerAppName: ${{ env.FRONTEND_APP_NAME }}
           imageToDeploy: ${{ env.ACR_NAME }}/frontend:${{ github.sha }}
           registryUrl: ${{ env.ACR_NAME }}
