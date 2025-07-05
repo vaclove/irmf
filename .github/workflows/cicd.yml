@@ -75,7 +75,11 @@ jobs:
           registryPassword: ${{ secrets.AZURE_CLIENT_SECRET }}
           targetPort: 3000
           ingress: internal
-          environmentVariables: 'PUBLIC_HOSTNAME=https://my.irmf.cz MAILGUN_API_KEY=${{ secrets.MAILGUN_API_KEY }} MAILGUN_DOMAIN=${{ secrets.MAILGUN_DOMAIN }} MAILGUN_SENDER_EMAIL=${{ secrets.MAILGUN_SENDER_EMAIL }}'
+          environmentVariables: |
+            PUBLIC_HOSTNAME=https://my.irmf.cz
+            MAILGUN_API_KEY=${{ secrets.MAILGUN_API_KEY }}
+            MAILGUN_DOMAIN=${{ secrets.MAILGUN_DOMAIN }}
+            MAILGUN_SENDER_EMAIL=${{ secrets.MAILGUN_SENDER_EMAIL }}
 
   deploy-frontend:
     runs-on: ubuntu-latest
@@ -99,4 +103,5 @@ jobs:
           targetPort: 3000
           ingress: external
           customDomainHostName: my.irmf.cz
-          environmentVariables: 'NEXT_PUBLIC_API_URL=https://${{ needs.deploy-backend.outputs.backend_url }}'
+          environmentVariables: |
+            NEXT_PUBLIC_API_URL=https://${{ needs.deploy-backend.outputs.backend_url }}
