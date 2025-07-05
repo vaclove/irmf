@@ -28,8 +28,8 @@ jobs:
         id: deploy
         uses: azure/container-apps-deploy-action@v1
         with:
-          resourceGroup: ${{ env.AZURE_RESOURCE_GROUP }}
-          containerAppEnvironment: ${{ env.AZURE_CONTAINER_APP_ENVIRONMENT }}
+          resourceGroup: ${{ vars.AZURE_RESOURCE_GROUP }}
+          containerAppEnvironment: ${{ vars.AZURE_CONTAINER_APP_ENVIRONMENT }}
           containerAppName: ${{ env.BACKEND_APP_NAME }}
           appSourcePath: ${{ github.workspace }}
           acrName: ${{ env.ACR_NAME }}
@@ -56,8 +56,8 @@ jobs:
       - name: Deploy Frontend to Azure Container App
         uses: azure/container-apps-deploy-action@v1
         with:
-          resourceGroup: ${{ env.AZURE_RESOURCE_GROUP }}
-          containerAppEnvironment: ${{ env.AZURE_CONTAINER_APP_ENVIRONMENT }}
+          resourceGroup: ${{ vars.AZURE_RESOURCE_GROUP }}
+          containerAppEnvironment: ${{ vars.AZURE_CONTAINER_APP_ENVIRONMENT }}
           containerAppName: ${{ env.FRONTEND_APP_NAME }}
           appSourcePath: ${{ github.workspace }}/client
           acrName: ${{ env.ACR_NAME }}
