@@ -8,7 +8,7 @@ on:
 env:
   BACKEND_APP_NAME: irmf-backend
   FRONTEND_APP_NAME: irmf-frontend
-  ACR_NAME: irmfcz.azurecr.io
+  ACR_NAME: irmfcz
 
 jobs:
   deploy-backend:
