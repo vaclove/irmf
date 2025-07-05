@@ -32,6 +32,9 @@ jobs:
           environment: ${{ secrets.CONTAINER_APP_ENVIRONMENT }}
           containerAppName: ${{ env.BACKEND_APP_NAME }}
           imageToDeploy: ${{ env.ACR_NAME }}/backend:${{ github.sha }}
+          registryUrl: ${{ env.ACR_NAME }}
+          registryUsername: ${{ secrets.AZURE_CLIENT_ID }}
+          registryPassword: ${{ secrets.AZURE_CLIENT_SECRET }}
           targetPort: 3000
           ingress: internal
           environmentVariables: |
@@ -60,6 +63,9 @@ jobs:
           environment: ${{ secrets.CONTAINER_APP_ENVIRONMENT }}
           containerAppName: ${{ env.FRONTEND_APP_NAME }}
           imageToDeploy: ${{ env.ACR_NAME }}/frontend:${{ github.sha }}
+          registryUrl: ${{ env.ACR_NAME }}
+          registryUsername: ${{ secrets.AZURE_CLIENT_ID }}
+          registryPassword: ${{ secrets.AZURE_CLIENT_SECRET }}
           targetPort: 3000
           ingress: external
           customDomainHostName: my.irmf.cz
